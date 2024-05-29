@@ -150,6 +150,20 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 sudo apt-get install tmux
 ```
 
+### TPM (Tmux Plugin Manager)
+
+```
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```
+
+```
+tmux source ~/.tmux.conf
+```
+
+#### Installing plugins
+
+Press ```prefix``` + ```I``` (capital i, as in Install) to fetch the plugin.
+
 ## zoxide
 
 ```
