@@ -1,137 +1,4 @@
-rl -s "hases/latest" | grep -Po '"tag_name": "v\K[^"]\*')
-
-```
-
-```
-
-curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-
-```
-
-```
-
-tar xf lazygit.tar.gz lazygit
-
-```
-
-```
-
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-```
-
-
-## GNU Stow
-
-```
-
-sudo apt-get install -y stow
-
-```
-
-
-## zsh-autosuggestions
-
-```
-
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-
-```
-
-## zsh-syntax-highlighting
-
-```
-
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-
-```
-## tmux
-
-```
-
-sudo apt-get install tmux
-
-```
-
-## zoxide
-
-```
-
-sudo apt-get install zoxide
-
-```
-
-
-
-
-
-```
-
-sudo install lazygit /usr/local/bin
-
-```
-
-### Ripgrep
-
-```
-
-sudo apt-get install ripgrep
-
-```
-
-### Fd
-
-```
-
-sudo apt install fd-find
-
-```
-
-
-### Lazyvim
-
-```
-
-git clone https://github.com/LazyVim/starter ~/.config/nvim
-
-```
-
-```
-
-rm -rf ~/.config/nvim/.git
-
-```
-
-## Starship
-
-```
-
-git clone https://github.com/starship/starship.git --recursive
-
-```
-
-```
-
-cd starship && cd install
-
-```
-
-```
-
-sh install.sh
-
-```
-
-
-## ZSH
-
-```
-
-sudo apt-get install zsh
-
-```
-
-### oh my zshttps://api.github.com/repos/jesseduffield/lazygit/rele## Content
+## Content
 
 - vim (Neovim) config
 - tmux config
@@ -158,45 +25,33 @@ sudo apt-get install zsh
     -   [alacritty](https://github.com/alacritty/alacritty) **_(Linux, Macos & Windows)_**
     -   [iterm2](https://iterm2.com/) **_(Macos)_**
 -   [Solarized Osaka](https://github.com/craftzdog/solarized-osaka.nvim)
--
+- 
 ## Neovim install
 
 ### Build from source
 
 ```
-
 sudo apt-get install ninja-build gettext cmake unzip curl build-essential
-
 ```
 
 ```
-
 git clone https://github.com/neovim/neovim
-
 ```
 
 ```
-
 cd neovim
-
 ```
 
 ```
-
 git checkout stable
-
 ```
 
 ```
-
 sudo make CMAKE_BUILD_TYPE=RelWithDebInfo
-
 ```
 
 ```
-
 sudo make install
-
 ```
 
 
@@ -206,5 +61,101 @@ sudo make install
 ### Lazygit
 
 ```
+LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+```
 
-LAZYGIT_VERSION=$(cu
+```
+curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+```
+
+```
+tar xf lazygit.tar.gz lazygit
+```
+
+```
+sudo install lazygit /usr/local/bin
+```
+
+### Ripgrep
+
+```
+sudo apt-get install ripgrep
+```
+
+### Fd
+
+```
+sudo apt install fd-find
+```
+
+
+### Lazyvim
+
+```
+git clone https://github.com/LazyVim/starter ~/.config/nvim
+```
+
+```
+rm -rf ~/.config/nvim/.git
+```
+
+## Starship
+
+```
+git clone https://github.com/starship/starship.git --recursive
+```
+
+```
+cd starship && cd install
+```
+
+```
+sh install.sh
+```
+
+
+## ZSH
+
+```
+sudo apt-get install zsh
+```
+
+### oh my zsh
+```
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
+
+
+## GNU Stow
+
+```
+sudo apt-get install -y stow
+```
+
+
+## zsh-autosuggestions
+
+```
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+```
+
+## zsh-syntax-highlighting
+
+```
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+```
+## tmux
+
+```
+sudo apt-get install tmux
+```
+
+## zoxide
+
+```
+sudo apt-get install zoxide
+```
+
+
+
+
