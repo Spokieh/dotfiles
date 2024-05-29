@@ -156,6 +156,26 @@ sudo apt-get install tmux
 sudo apt-get install zoxide
 ```
 
+## NVM
+
+```
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+```
+
+or
+
+```
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+```
+
+```
+nvm install --lts
+```
+
+```
+nvm use --lts
+```
+
 
 
 
