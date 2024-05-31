@@ -1,55 +1,103 @@
 log_file=~/install_progress_log.txt
 
-sudo apt-get install zsh -y
+# Check if zsh is installed
 if type -p zsh >/dev/null; then
-	echo "zsh Installed" >>$log_file
+    echo "zsh is already installed" >>$log_file
 else
-	echo "zsh FAILED TO INSTALL!!!" >>$log_file
+    # Install zsh
+    sudo apt-get install zsh -y
+    if type -p zsh >/dev/null; then
+        echo "zsh Installed" >>$log_file
+    else
+        echo "zsh FAILED TO INSTALL!!!" >>$log_file
+    fi
 fi
 
-sudo apt-get install ripgrep -y
+# Check if ripgrep is installed
+if type -p ripgrep >/dev/null; then
+    echo "ripgrep is already installed" >>$log_file
+else
+    # Install ripgrep
+    sudo apt-get install ripgrep -y
 if type -p ripgrep >/dev/null; then
 	echo "ripgrep Installed" >>$log_file
 else
 	echo "ripgrep FAILED TO INSTALL!!!" >>$log_file
 fi
+fi
 
-sudo apt-get install fd-find -y
+# Check if fd-find is installed
+if type -p find >/dev/null; then
+    echo "fd-find is already installed" >>$log_file
+else
+    # Install fd-find
+    sudo apt-get install fd-find -y
 if type -p fd-find >/dev/null; then
 	echo "fd-find Installed" >>$log_file
 else
 	echo "fd-find FAILED TO INSTALL!!!" >>$log_file
 fi
+fi
 
-sudo apt-get install stow -y
+# Check if stow is installed
+if type -p find >/dev/null; then
+    echo "stow is already installed" >>$log_file
+else
+    # Install stow
+    sudo apt-get install stow -y
 if type -p stow >/dev/null; then
 	echo "stow Installed" >>$log_file
 else
 	echo "stow FAILED TO INSTALL!!!" >>$log_file
 fi
+fi
 
-sudo apt-get install tmux -y
+# Check if tmux is installed
+if type -p tmux >/dev/null; then
+    echo "tmux is already installed" >>$log_file
+	tmux kill-server
+else
+    # Install tmux
+    sudo apt-get install tmux -y
 if type -p tmux >/dev/null; then
 	echo "tmux Installed" >>$log_file
 else
 	echo "tmux FAILED TO INSTALL!!!" >>$log_file
 fi
+fi
 
-sudo apt-get install zoxide -y
+# Check if zoxide is installed
+if type -p zoxide >/dev/null; then
+    echo "zoxide is already installed" >>$log_file
+	zoxide kill-server
+else
+    # Install zoxide
+    sudo apt-get install zoxide -y
 if type -p zoxide >/dev/null; then
 	echo "zoxide Installed" >>$log_file
 else
 	echo "zoxide FAILED TO INSTALL!!!" >>$log_file
 fi
+fi
 
-# install neovim
-cd ~/
-sudo apt-get -y install ninja-build gettext cmake unzip curl build-essential
+# Check if NeoVim is installed
+if type -p nvim -v >/dev/null; then
+    echo "NeoVim is already installed" >>$log_file
+else
+    # Install NeoVim
+    cd ~/
+sudo apt-get install ninja-build gettext cmake unzip curl build-essential -y
 git clone https://github.com/neovim/neovim
 cd neovim
 git checkout stable
 sudo make CMAKE_BUILD_TYPE=RelWithDebInfo
 sudo make install
+if type -p nvim -v >/dev/null; then
+	echo "NeoVim Installed" >>$log_file
+else
+	echo "NeoVim FAILED TO INSTALL!!!" >>$log_file
+fi
+fi
 
 # install lazygit
 cd ~/
