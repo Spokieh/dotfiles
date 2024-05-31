@@ -2,6 +2,8 @@
 
 log_file=~/install_progress_log.txt
 
+sudo apt-get update
+
 # Check if zsh is installed
 if [ -f /bin/zsh ]; then
     echo "zsh is already installed" >> $log_file
@@ -29,17 +31,17 @@ else
 fi
 
 # Check if fd-find is installed
-if [ -f /usr/bin/find ]; then
-    echo "fd-find is already installed" >> $log_file
-else
+# if [ -f /usr/bin/find ]; then
+#    echo "fd-find is already installed" >> $log_file
+#else
     # Install fd-find
     sudo apt-get install fd-find -y
-    if [ -f /usr/bin/find ]; then
-        echo "fd-find Installed" >>$log_file
-    else
-        echo "fd-find FAILED TO INSTALL!!!" >>$log_file
-    fi
-fi
+#    if [ -f /usr/bin/find ]; then
+#        echo "fd-find Installed" >>$log_file
+#    else
+#        echo "fd-find FAILED TO INSTALL!!!" >>$log_file
+#    fi
+#fi
 
 # Check if stow is installed
 if [ -f /usr/bin/stow ]; then
@@ -187,8 +189,10 @@ else
 fi
 
 # Copy dotfiles
+cd ~/
+cd dotfiles
 cp -R local_dotfiles ~/
-cd ~/local_dotfiles
+cd ~/
 
 # Rename current dotfiles
 timestamp=$(date +"%Y%m%d_%H%M")
