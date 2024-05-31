@@ -211,12 +211,28 @@ source ~/.zshrc
 if [ -d ~/.oh-my-zsh ]; then
     echo "Oh My Zsh is already installed" >> $log_file
 else
+    # Install Oh My Zsh
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+    echo "Oh My Zsh is installed" >> $log_file
+fi
+
+# Check if zsh-autosuggestions is installed
+if [ -d ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]; then
+    echo "zsh-autosuggestions is already installed" >> $log_file
+else
     # Install zsh-autosuggestions
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
+	echo "Oh My Zsh is installed" >> $log_file
+fi
+
+# Check if zsh-syntax-highlighting is installed
+if [ -d ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting ]; then
+    echo "zsh-syntax-highlighting is already installed" >> $log_file
+else
     # Install zsh-syntax-highlighting
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
-    # Install Oh My Zsh
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+	echo "zsh-syntax-highlighting is installed" >> $log_file
 fi
