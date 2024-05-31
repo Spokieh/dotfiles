@@ -197,24 +197,26 @@ cd ~/
 # Rename current dotfiles
 timestamp=$(date +"%Y%m%d_%H%M")
 cd ~/
-mv ~/.config/nvim/init.lua{,_$timestamp}
-mv ~/.config/nvim/lua{,_$timestamp}
-mv ~/.config/starship.toml{,_$timestamp}
+mv ~/.config/nvim/init.lua ~/.config/nvim/init.lua_$timestamp
+mv ~/.config/nvim/lua ~/.config/nvim/lua_$timestamp
+# mv ~/.config/starship.toml ~/.config/starship.toml_$timestamp
+mv ~/.zshrc ~/.zshrc_$timestamp
 
 # GNU Stow the files
 cd ~/local_dotfiles
 stow .
+source ~/.zshrc
 
 # Check if Oh My Zsh is installed
 if [ -d ~/.oh-my-zsh ]; then
     echo "Oh My Zsh is already installed" >> $log_file
 else
-    # Install Oh My Zsh
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
     # Install zsh-autosuggestions
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
     # Install zsh-syntax-highlighting
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
+    # Install Oh My Zsh
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
