@@ -1,41 +1,41 @@
 log_file=~/install_progress_log.txt
 
-sudo apt-get -y install zsh
+sudo apt-get install zsh -y
 if type -p zsh >/dev/null; then
 	echo "zsh Installed" >>$log_file
 else
 	echo "zsh FAILED TO INSTALL!!!" >>$log_file
 fi
 
-sudo apt-get -y install ripgrep
+sudo apt-get install ripgrep -y
 if type -p ripgrep >/dev/null; then
 	echo "ripgrep Installed" >>$log_file
 else
 	echo "ripgrep FAILED TO INSTALL!!!" >>$log_file
 fi
 
-sudo apt-get -y install fd-find
+sudo apt-get install fd-find -y
 if type -p fd-find >/dev/null; then
 	echo "fd-find Installed" >>$log_file
 else
 	echo "fd-find FAILED TO INSTALL!!!" >>$log_file
 fi
 
-sudo apt-get -y install stow
+sudo apt-get install stow -y
 if type -p stow >/dev/null; then
 	echo "stow Installed" >>$log_file
 else
 	echo "stow FAILED TO INSTALL!!!" >>$log_file
 fi
 
-sudo apt-get -y install tmux
+sudo apt-get install tmux -y
 if type -p tmux >/dev/null; then
 	echo "tmux Installed" >>$log_file
 else
 	echo "tmux FAILED TO INSTALL!!!" >>$log_file
 fi
 
-sudo apt-get -y install zoxide
+sudo apt-get install zoxide -y
 if type -p zoxide >/dev/null; then
 	echo "zoxide Installed" >>$log_file
 else
@@ -79,21 +79,12 @@ cd starship
 cd install
 sh install.sh
 
-# install oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-# install zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-
-# install zsh-syntax-highlighting
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-
 # install TPM
 cd ~/
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 tmux source ~/.tmux.conf
 
-#install nvm
+# install nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 source ~/.zshrc
 nvm install --lts
@@ -103,3 +94,27 @@ nvm use --lts
 cd ~/
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
+
+# copy dotfiles
+cp -R local_dotfiles ~/
+cd ~/
+cd local_dotfiles
+
+# rename current dotfiles
+timestamp=$(date +"%Y%m%d_%H%M")
+cd ~/
+
+mv ~/.config/nvim/init.lua{,_$timestamp}.
+mv ~/.config/nvim/lua{,_$timestamp}
+mv ~/.config/starship.toml{,_$timestamp}
+
+stow .
+
+# install oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# install zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+# install zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
