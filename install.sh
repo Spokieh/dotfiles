@@ -29,12 +29,12 @@ else
 fi
 
 # Check if fd-find is installed
-if [ -f /usr/bin/fdfind ]; then
+if [ -f /usr/bin/find ]; then
     echo "fd-find is already installed" >> $log_file
 else
     # Install fd-find
     sudo apt-get install fd-find -y
-    if [ -f /usr/bin/fdfind ]; then
+    if [ -f /usr/bin/find ]; then
         echo "fd-find Installed" >>$log_file
     else
         echo "fd-find FAILED TO INSTALL!!!" >>$log_file
@@ -65,6 +65,16 @@ else
     else
         echo "tmux FAILED TO INSTALL!!!" >>$log_file
     fi
+fi
+
+# Check if tpm is installed
+if [ -d ~/.tmux/plugins/tpm ]; then
+    echo "tpm is already installed" >> $log_file
+else
+    # Install TPM
+    cd ~/
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    tmux source ~/.tmux.conf
 fi
 
 # Check if zoxide is installed
@@ -153,16 +163,6 @@ else
     else
         echo "starship FAILED TO INSTALL!!!" >>$log_file
     fi
-fi
-
-# Check if tpm is installed
-if [ -d ~/.tmux/plugins/tpm ]; then
-    echo "tpm is already installed" >> $log_file
-else
-    # Install TPM
-    cd ~/
-    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-    tmux source ~/.tmux.conf
 fi
 
 # Check if nvm is installed
