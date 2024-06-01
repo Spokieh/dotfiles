@@ -200,7 +200,7 @@ else
 fi
 
 # Copy dotfiles
-cp -R ~/dotfiles/local_dotfiles ~/
+cp -R ~/dotfiles/local_dotfiles ~/local_dotfiles
 
 # Rename current dotfiles
 mv ~/.config/nvim/init.lua ~/.config/nvim/init.lua_$timestamp
