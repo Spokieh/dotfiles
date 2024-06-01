@@ -1,3 +1,27 @@
+# Run install.sh script
+clone the repository and change directory
+```
+git clone https://github.com/Spokieh/dotfiles.git && cd dotfiles
+```
+run the installation script
+```
+sh install.sh
+```
+
+## After succesfully installing everything
+
+Reload TMUX environment so TPM is sourced:
+```
+# type this in terminal if tmux is already running
+tmux source ~/.tmux.conf
+```
+Press ```prefix``` + ```I``` (capital i, as in Install) to fetch the plugin.
+
+To download, compile, and install the long time support release of node, do this:
+```
+nvm install --lts
+```
+
 ## Content
 
 - vim (Neovim) config
