@@ -2,6 +2,9 @@
 
 log_file=~/install_progress_log.txt
 
+timestamp=$(date +"%Y%m%d_%H%M")
+echo $timestamp >> $log_file
+
 sudo apt-get update
 
 # Check if zsh is installed
@@ -11,9 +14,9 @@ else
     # Install zsh
     sudo apt-get install zsh -y
     if [ -f /bin/zsh ]; then
-        echo "zsh Installed" >>$log_file
+        echo "zsh installed successfully" >>$log_file
     else
-        echo "zsh FAILED TO INSTALL!!!" >>$log_file
+        echo "zsh installation failed" >>$log_file
     fi
 fi
 
@@ -24,9 +27,9 @@ else
     # Install ripgrep
     sudo apt-get install ripgrep -y
     if [ -f /usr/bin/rg ]; then
-        echo "ripgrep Installed" >>$log_file
+        echo "ripgrep installed successfully" >>$log_file
     else
-        echo "ripgrep FAILED TO INSTALL!!!" >>$log_file
+        echo "ripgrep installation failed" >>$log_file
     fi
 fi
 
@@ -37,9 +40,9 @@ fi
     # Install fd-find
     sudo apt-get install fd-find -y
 #    if [ -f /usr/bin/find ]; then
-#        echo "fd-find Installed" >>$log_file
+#        echo "fd-find installed successfully" >>$log_file
 #    else
-#        echo "fd-find FAILED TO INSTALL!!!" >>$log_file
+#        echo "fd-find installation failed" >>$log_file
 #    fi
 #fi
 
@@ -50,9 +53,9 @@ else
     # Install stow
     sudo apt-get install stow -y
     if [ -f /usr/bin/stow ]; then
-        echo "stow Installed" >>$log_file
+        echo "stow installed successfully" >>$log_file
     else
-        echo "stow FAILED TO INSTALL!!!" >>$log_file
+        echo "stow installation failed" >>$log_file
     fi
 fi
 
@@ -63,9 +66,9 @@ else
     # Install tmux
     sudo apt-get install tmux -y
     if [ -f /usr/bin/tmux ]; then
-        echo "tmux Installed" >>$log_file
+        echo "tmux installed successfully" >>$log_file
     else
-        echo "tmux FAILED TO INSTALL!!!" >>$log_file
+        echo "tmux installation failed" >>$log_file
     fi
 fi
 
@@ -76,7 +79,14 @@ else
     # Install TPM
     cd ~/
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+	tmux
     tmux source ~/.tmux.conf
+	tmux kill-session
+    if [ -d ~/.tmux/plugins/tpm ]; then
+        echo "tpm installed successfully" >>$log_file
+    else
+        echo "tpm installation failed" >>$log_file
+    fi
 fi
 
 # Check if zoxide is installed
@@ -86,9 +96,9 @@ else
     # Install zoxide
     sudo apt-get install zoxide -y
     if [ -f /usr/bin/zoxide ]; then
-        echo "zoxide Installed" >>$log_file
+        echo "zoxide installed successfully" >>$log_file
     else
-        echo "zoxide FAILED TO INSTALL!!!" >>$log_file
+        echo "zoxide installation failed" >>$log_file
     fi
 fi
 
@@ -105,9 +115,9 @@ else
     sudo make CMAKE_BUILD_TYPE=RelWithDebInfo
     sudo make install
     if [ -f /usr/local/bin/nvim ]; then
-        echo "NeoVim Installed" >>$log_file
+        echo "NeoVim installed successfully" >>$log_file
     else
-        echo "NeoVim FAILED TO INSTALL!!!" >>$log_file
+        echo "NeoVim installation failed" >>$log_file
     fi
 fi
 
@@ -122,9 +132,9 @@ else
     tar xf lazygit.tar.gz lazygit
     sudo install lazygit /usr/local/bin
     if [ -f /usr/local/bin/lazygit ]; then
-        echo "lazygit Installed" >>$log_file
+        echo "lazygit installed successfully" >>$log_file
     else
-        echo "lazygit FAILED TO INSTALL!!!" >>$log_file
+        echo "lazygit installation failed" >>$log_file
     fi
 fi
 
@@ -144,9 +154,9 @@ else
     git clone https://github.com/LazyVim/starter ~/.config/nvim
     rm -rf ~/.config/nvim/.git
     if [ -d ~/.config/nvim ]; then
-        echo "lazyvim Installed" >>$log_file
+        echo "lazyvim installed successfully" >>$log_file
     else
-        echo "lazyvim FAILED TO INSTALL!!!" >>$log_file
+        echo "lazyvim installation failed" >>$log_file
     fi
 fi
 
@@ -161,9 +171,9 @@ else
     cd install
     sh install.sh
     if [ -f /usr/local/bin/starship ]; then
-        echo "starship Installed" >>$log_file
+        echo "starship installed successfully" >>$log_file
     else
-        echo "starship FAILED TO INSTALL!!!" >>$log_file
+        echo "starship installation failed" >>$log_file
     fi
 fi
 
@@ -173,9 +183,18 @@ if [ -d ~/.nvm ]; then
 else
     # Install nvm
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-    source ~/.zshrc
-    nvm install --lts
-    nvm use --lts
+
+    if [ -d ~/.nvm ]; then
+        source ~/.zshrc
+        nvm install --lts
+        nvm use --lts
+        echo "nvm installed successfully" >> $log_file
+    else
+        echo "nvm installation failed" >>$log_file
+    fi
+	
+fi
+
 fi
 
 # Check if FZF is installed
@@ -186,6 +205,14 @@ else
     cd ~/
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
     ~/.fzf/install
+
+    if [ -d ~/.fzf ]; then
+        echo "FZF installed successfully" >> $log_file
+	 
+    else
+        echo "FZF installation failed" >>$log_file
+    fi
+
 fi
 
 # Copy dotfiles
@@ -195,7 +222,6 @@ cp -R local_dotfiles ~/
 cd ~/
 
 # Rename current dotfiles
-timestamp=$(date +"%Y%m%d_%H%M")
 cd ~/
 mv ~/.config/nvim/init.lua ~/.config/nvim/init.lua_$timestamp
 mv ~/.config/nvim/lua ~/.config/nvim/lua_$timestamp
@@ -214,7 +240,13 @@ else
     # Install Oh My Zsh
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-    echo "Oh My Zsh is installed" >> $log_file
+
+    if [ -d ~/.oh-my-zsh ]; then
+        echo "Oh My Zsh installed successfully" >> $log_file
+	 
+    else
+        echo "Oh My Zsh installation failed" >>$log_file
+    fi
 fi
 
 # Check if zsh-autosuggestions is installed
@@ -224,7 +256,12 @@ else
     # Install zsh-autosuggestions
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
-	echo "Oh My Zsh is installed" >> $log_file
+
+    if [ -d ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]; then
+	    echo "zsh-autosuggestions installed successfully" >> $log_file
+    else
+        echo "zsh-autosuggestions installation failed" >>$log_file
+    fi
 fi
 
 # Check if zsh-syntax-highlighting is installed
@@ -234,5 +271,10 @@ else
     # Install zsh-syntax-highlighting
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
-	echo "zsh-syntax-highlighting is installed" >> $log_file
+    if [ -d ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting ]; then
+        echo "zsh-syntax-highlighting installed successfully" >> $log_file
+    else
+        echo "zsh-syntax-highlighting installation failed" >>$log_file
+    fi
+	
 fi
