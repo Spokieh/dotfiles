@@ -77,7 +77,6 @@ if [ -d ~/.tmux/plugins/tpm ]; then
     echo "tpm is already installed" >> $log_file
 else
     # Install TPM
-    cd ~/
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     if [ -d ~/.tmux/plugins/tpm ]; then
         echo "tpm installed successfully" >>$log_file
@@ -104,10 +103,9 @@ if [ -f /usr/local/bin/nvim ]; then
     echo "NeoVim is already installed" >> $log_file
 else
     # Install NeoVim
-    cd ~/
     sudo apt-get install ninja-build gettext cmake unzip curl build-essential -y
-    git clone https://github.com/neovim/neovim
-    cd neovim
+    git clone https://github.com/neovim/neovim ~/neovim
+    cd ~/neovim
     git checkout stable
     sudo make CMAKE_BUILD_TYPE=RelWithDebInfo
     sudo make install
@@ -140,7 +138,6 @@ if [ -d ~/.config/nvim ]; then
     echo "lazyvim is already installed" >> $log_file
 else
     # Install lazyvim
-    cd ~/
     # required
     mv ~/.config/nvim{,.bak}
     # optional but recommended
@@ -162,11 +159,8 @@ if [ -f /usr/local/bin/starship ]; then
     echo "starship is already installed" >> $log_file
 else
     # Install starship
-    cd ~/
-    git clone https://github.com/starship/starship.git --recursive
-    cd starship
-    cd install
-    sh install.sh
+    git clone https://github.com/starship/starship.git --recursive ~/starship
+    sh ~/starship/install/install.sh
     if [ -f /usr/local/bin/starship ]; then
         echo "starship installed successfully" >>$log_file
     else
@@ -180,7 +174,6 @@ if [ -d ~/.nvm ]; then
 else
     # Install nvm
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-
     if [ -d ~/.nvm ]; then
         echo "nvm installed successfully" >> $log_file
     else
@@ -194,7 +187,6 @@ if [ -d ~/.fzf ]; then
     echo "FZF is already installed" >> $log_file
 else
     # Install fzf
-    cd ~/
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
     ~/.fzf/install
 
@@ -208,13 +200,9 @@ else
 fi
 
 # Copy dotfiles
-cd ~/
-cd dotfiles
-cp -R local_dotfiles ~/
-cd ~/
+cp -R ~/dotfiles/local_dotfiles ~/
 
 # Rename current dotfiles
-cd ~/
 mv ~/.config/nvim/init.lua ~/.config/nvim/init.lua_$timestamp
 mv ~/.config/nvim/lua ~/.config/nvim/lua_$timestamp
 # mv ~/.config/starship.toml ~/.config/starship.toml_$timestamp
@@ -232,8 +220,6 @@ else
     # Install Oh My Zsh
     cd ~/dotfiles
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-
     if [ -d ~/.oh-my-zsh ]; then
         echo "Oh My Zsh installed successfully" >> $log_file
 	 
@@ -248,8 +234,6 @@ if [ -d ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]; then
 else
     # Install zsh-autosuggestions
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-
-
     if [ -d ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]; then
 	    echo "zsh-autosuggestions installed successfully" >> $log_file
     else
@@ -263,7 +247,6 @@ if [ -d ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting ]; then
 else
     # Install zsh-syntax-highlighting
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-
     if [ -d ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting ]; then
         echo "zsh-syntax-highlighting installed successfully" >> $log_file
     else
