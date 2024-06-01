@@ -261,4 +261,4 @@ echo -e "\n====== Summary ======\n"
 cat $log_file
 echo
 echo "Enjoy -Spokieh"
-rm $log_file
+rm -rf $log_file
