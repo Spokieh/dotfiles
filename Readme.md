@@ -3,7 +3,7 @@ clone the repository and change directory
 ```
 git clone https://github.com/Spokieh/dotfiles.git && cd dotfiles
 ```
-run the installation script
+run the installation script (You need to run it twice because of oh-my-zsh complications)
 ```
 sh install.sh
 ```
