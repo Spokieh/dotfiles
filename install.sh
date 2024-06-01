@@ -270,3 +270,12 @@ else
         echo "zsh-syntax-highlighting installation failed" >>$log_file
     fi	
 fi
+
+#==============
+# Give the user a summary of what has been installed
+#==============
+echo -e "\n====== Summary ======\n"
+cat $log_file
+echo
+echo "Enjoy -Spokieh"
+rm $log_file
