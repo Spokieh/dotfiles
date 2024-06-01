@@ -79,9 +79,6 @@ else
     # Install TPM
     cd ~/
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-	tmux
-    tmux source ~/.tmux.conf
-	tmux kill-session
     if [ -d ~/.tmux/plugins/tpm ]; then
         echo "tpm installed successfully" >>$log_file
     else
@@ -185,16 +182,11 @@ else
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 
     if [ -d ~/.nvm ]; then
-        source ~/.zshrc
-        nvm install --lts
-        nvm use --lts
         echo "nvm installed successfully" >> $log_file
     else
         echo "nvm installation failed" >>$log_file
     fi
 	
-fi
-
 fi
 
 # Check if FZF is installed
@@ -238,6 +230,7 @@ if [ -d ~/.oh-my-zsh ]; then
     echo "Oh My Zsh is already installed" >> $log_file
 else
     # Install Oh My Zsh
+    cd ~/dotfiles
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 
@@ -275,6 +268,5 @@ else
         echo "zsh-syntax-highlighting installed successfully" >> $log_file
     else
         echo "zsh-syntax-highlighting installation failed" >>$log_file
-    fi
-	
+    fi	
 fi
