@@ -46,6 +46,19 @@ else
 	fi
 fi
 
+# Check if ranger is installed
+if [ -f /usr/bin/ranger ]; then
+	echo "ranger is already installed" >>$log_file
+else
+	# Install fd-find
+	sudo apt-get install ranger -y
+	if [ -f /usr/bin/ranger ]; then
+		echo "ranger installed successfully" >>$log_file
+	else
+		echo "ranger installation failed" >>$log_file
+	fi
+fi
+
 # Check if stow is installed
 if [ -f /usr/bin/stow ]; then
 	echo "stow is already installed" >>$log_file
