@@ -60,17 +60,18 @@ else
 fi
 
 # Check if ranger-devicons is installed
-# if [ -f /usr/bin/ranger ]; then
-# echo "ranger is already installed" >>$log_file
-# else
-# Install ranger-devicons
-git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons
-# if [ -f /usr/bin/ranger ]; then
-echo "ranger-devicons installed successfully" >>$log_file
-# else
-echo "ranger-devicons installation failed" >>$log_file
-# fi
-# fi
+# TODO: NERDFONTS MUST BE INSTALLED AND SETUP
+if [ -f ~/.config/ranger/plugins/ranger_devicons ]; then
+	echo "ranger is already installed" >>$log_file
+else
+	# Install ranger-devicons
+	git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons
+	if [ -f ~/.config/ranger/plugins/ranger_devicons ]; then
+		echo "ranger-devicons installed successfully" >>$log_file
+	else
+		echo "ranger-devicons installation failed" >>$log_file
+	fi
+fi
 
 # Check if stow is installed
 if [ -f /usr/bin/stow ]; then
