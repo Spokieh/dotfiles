@@ -227,18 +227,15 @@ else
 fi
 
 # Copy dotfiles
-cp -R ~/dotfiles/local_dotfiles ~/local_dotfiles
+# cp -R ~/dotfiles/local_dotfiles ~/local_dotfiles
+cd ~/dotfiles
+stow local_dotfiles
 
 # Rename current dotfiles
 mv ~/.config/nvim/init.lua ~/.config/nvim/init.lua_$timestamp
 mv ~/.config/nvim/lua ~/.config/nvim/lua_$timestamp
 # mv ~/.config/starship.toml ~/.config/starship.toml_$timestamp
 mv ~/.zshrc ~/.zshrc_$timestamp
-
-# GNU Stow the files
-cd ~/local_dotfiles
-stow .
-source ~/.zshrc
 
 # Check if Oh My Zsh is installed
 if [ -d ~/.oh-my-zsh ]; then
