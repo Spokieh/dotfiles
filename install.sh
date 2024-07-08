@@ -61,12 +61,12 @@ fi
 
 # Check if ranger-devicons is installed
 # TODO: NERDFONTS MUST BE INSTALLED AND SETUP
-if [ -f ~/.config/ranger/plugins/ranger_devicons ]; then
+if [ -d ~/.config/ranger/plugins/ranger_devicons ]; then
 	echo "ranger is already installed" >>$log_file
 else
-	# Install ranger-devicons
+	# Install ranger-deviconse
 	git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons
-	if [ -f ~/.config/ranger/plugins/ranger_devicons ]; then
+	if [ -d ~/.config/ranger/plugins/ranger_devicons ]; then
 		echo "ranger-devicons installed successfully" >>$log_file
 	else
 		echo "ranger-devicons installation failed" >>$log_file
