@@ -283,6 +283,8 @@ install_personal() {
 		fi
 	fi
 
+	echo 'eval "$(starship init zsh)"' >>~/dotfiles/local_dotfiles/.zshrc
+
 }
 
 install_work() {

@@ -97,9 +97,6 @@ source $ZSH/oh-my-zsh.sh
 
 alias vim="nvim"
 
-
-eval "$(starship init zsh)"
-
 eval "$(zoxide init zsh)"
 
 export NVM_DIR="$HOME/.nvm"
