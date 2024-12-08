@@ -6,7 +6,10 @@ timestamp=$(date +"%Y%m%d_%H%M")
 echo $timestamp >>$log_file
 
 sudo apt-get update
-sudo apt-get install build-essential
+sudo apt-get install build-essential -y
+# for clipboard
+sudo apt install xclip
+
 
 install_common() {
 	# Check if zsh is installed
@@ -132,9 +135,12 @@ install_common() {
 		echo "NeoVim is already installed" >>$log_file
 	else
 		# Install NeoVim
+		cd ~
 		curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
 		sudo rm -rf /opt/nvim
 		sudo tar -C /opt -xzf nvim-linux64.tar.gz
+		cd ~
+		rm -rf nvim-linux64.tar.gz
 		if [ -f /usr/local/bin/nvim ]; then
 			echo "NeoVim installed successfully" >>$log_file
 		else
@@ -152,6 +158,8 @@ install_common() {
 		curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
 		tar xf lazygit.tar.gz lazygit
 		sudo install lazygit /usr/local/bin
+		cd ~
+		rm -rf lazygit.tar.gz
 		if [ -f /usr/local/bin/lazygit ]; then
 			echo "lazygit installed successfully" >>$log_file
 		else
@@ -185,13 +193,14 @@ install_common() {
 		echo "nvm is already installed" >>$log_file
 	else
 		# Install nvm
-		curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+		curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+		source ~/.bashrc
+		nvm install --lts
 		if [ -d ~/.nvm ]; then
 			echo "nvm installed successfully" >>$log_file
 		else
 			echo "nvm installation failed" >>$log_file
 		fi
-
 	fi
 
 	# Check if FZF is installed
@@ -201,21 +210,19 @@ install_common() {
 		# Install fzf
 		git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 		~/.fzf/install
-
 		if [ -d ~/.fzf ]; then
 			echo "FZF installed successfully" >>$log_file
-
 		else
 			echo "FZF installation failed" >>$log_file
 		fi
-
 	fi
 
 	# Rename current dotfiles
 	mv ~/.config/nvim/init.lua ~/.config/nvim/init.lua_$timestamp
 	mv ~/.config/nvim/lua ~/.config/nvim/lua_$timestamp
-	# mv ~/.config/starship.toml ~/.config/starship.toml_$timestamp
+	
 	mv ~/.zshrc ~/.zshrc_$timestamp
+
 
 	# Copy dotfiles
 	# cp -R ~/dotfiles/local_dotfiles ~/local_dotfiles
@@ -231,7 +238,6 @@ install_common() {
 		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 		if [ -d ~/.oh-my-zsh ]; then
 			echo "Oh My Zsh installed successfully" >>$log_file
-
 		else
 			echo "Oh My Zsh installation failed" >>$log_file
 		fi
