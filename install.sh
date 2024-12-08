@@ -6,6 +6,7 @@ timestamp=$(date +"%Y%m%d_%H%M")
 echo $timestamp >>$log_file
 
 sudo apt-get update
+sudo apt-get install build-essential
 
 install_common() {
 	# Check if zsh is installed
@@ -131,12 +132,9 @@ install_common() {
 		echo "NeoVim is already installed" >>$log_file
 	else
 		# Install NeoVim
-		sudo apt-get install ninja-build gettext cmake unzip curl build-essential -y
-		git clone https://github.com/neovim/neovim ~/neovim
-		cd ~/neovim
-		git checkout stable
-		sudo make CMAKE_BUILD_TYPE=RelWithDebInfo
-		sudo make install
+		curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+		sudo rm -rf /opt/nvim
+		sudo tar -C /opt -xzf nvim-linux64.tar.gz
 		if [ -f /usr/local/bin/nvim ]; then
 			echo "NeoVim installed successfully" >>$log_file
 		else
