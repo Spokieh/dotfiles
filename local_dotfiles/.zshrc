@@ -95,6 +95,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+export PATH="$PATH:/opt/nvim-linux64/bin"
 alias vim="nvim"
 
 eval "$(zoxide init zsh)"
