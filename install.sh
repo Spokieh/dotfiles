@@ -254,7 +254,7 @@ install_common() {
 
 	# Check if zsh-syntax-highlighting is installed
 	if [ -d ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting ]; then
-		echo "zsh-syntax-highlighting is already installed" >>$log_file
+		echo "zsh-syntax-highlighting is already installed" >> $log_file
 	else
 		# Install zsh-syntax-highlighting
 		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
@@ -263,6 +263,27 @@ install_common() {
 		else
 			echo "zsh-syntax-highlighting installation failed" >>$log_file
 		fi
+	fi
+
+	#check if go is installed
+	if which go &> /dev/null; then
+  	  echo "Go is installed." >> $log_file
+	else
+ 		echo "Go is not installed. Installing now..."
+		cd ~
+		wget https://go.dev/dl/go1.24.0.linux-amd64.tar.gz -O go.tar.gz
+		sudo tar -xzvf go.tar.gz -C /usr/local
+		echo export PATH=$HOME/go/bin:/usr/local/go/bin:$PATH >> ~/.profile
+		source ~/.profile
+	fi
+
+	#check if lazydocker is installed
+	if which lazydocker &> /dev/null; then
+  	  echo "Lazydocker is installed." >> $log_file
+	else
+ 		echo "Lazydocker is not installed. Installing now..."
+		cd ~
+		go install github.com/jesseduffield/lazydocker@latest
 	fi
 
 }
